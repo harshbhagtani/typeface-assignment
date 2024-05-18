@@ -13,6 +13,7 @@ const ChatTile = ({ chat }) => {
 
   const getLatestMessage = () => {
     let list = messages?.filter((message) => message.chat_id === chat.id);
+    if (!list?.length) return;
     return list[list.length - 1];
   };
 
@@ -61,7 +62,7 @@ const ChatTile = ({ chat }) => {
           {latestMessage?.content}
         </Typography>
         <Typography fontSize={10} textAlign={"right"} color={"gray"}>
-          {formatDateTime(latestMessage?.time_stamp)}
+          {latestMessage ? formatDateTime(latestMessage?.time_stamp) : ""}
         </Typography>
       </Box>
       <IconButton onClick={deleteChat}>
