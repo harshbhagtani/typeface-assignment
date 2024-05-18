@@ -45,5 +45,12 @@ export const initialMessageList = [
     content: "Hello world i am chat 4",
     chat_id: 4,
     time_stamp: Date.now()
+  },
+  {
+    id: 1,
+    user_name: "Guest",
+    content: "Hello chat 1 i am great what about you.",
+    chat_id: 1,
+    time_stamp: Date.now()
   }
 ];
