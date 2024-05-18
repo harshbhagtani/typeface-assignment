@@ -1,14 +1,32 @@
 import { Avatar, Box, IconButton, Typography } from "@mui/material";
 import React from "react";
-import { FaEllipsisVertical } from "react-icons/fa6";
+import { MdDelete } from "react-icons/md";
 import { useAppStore } from "../../../store/useAppstore";
+import { formatDateTime, generateUid } from "../../../utils";
 
 const ChatTile = ({ chat }) => {
+  const chatList = useAppStore((state) => state.chatList);
   const setSelectedChat = useAppStore((state) => state.setSelectedChat);
   const selectedChat = useAppStore((state) => state.selectedChat);
+  const setChatList = useAppStore((state) => state.setChatList);
+  const messages = useAppStore((state) => state.messages);
+
+  const getLatestMessage = () => {
+    let list = messages?.filter((message) => message.chat_id === chat.id);
+    return list[list.length - 1];
+  };
+
+  const latestMessage = getLatestMessage();
 
   const handleClick = () => {
     setSelectedChat(chat);
+  };
+
+  const deleteChat = (e) => {
+    e.stopPropagation();
+    const updatedChatList = chatList?.filter((item) => item.id !== chat.id);
+    setChatList([...updatedChatList]);
+    setSelectedChat(updatedChatList[0]);
   };
 
   return (
@@ -25,14 +43,29 @@ const ChatTile = ({ chat }) => {
       }}
     >
       <Avatar />
-      <Box flexGrow={"1"}>
-        <Typography>{chat.chat_name}</Typography>
-        <Typography variant="body2" color={"gray"}>
-          Latest message...
+      <Box flexGrow={"1"} width={"70%"}>
+        <Typography
+          whiteSpace={"nowrap"}
+          textOverflow={"ellipsis"}
+          overflow={"hidden"}
+        >
+          {chat.chat_name}
+        </Typography>
+        <Typography
+          variant="body2"
+          color={"gray"}
+          whiteSpace={"nowrap"}
+          textOverflow={"ellipsis"}
+          overflow={"hidden"}
+        >
+          {latestMessage?.content}
+        </Typography>
+        <Typography fontSize={10} textAlign={"right"} color={"gray"}>
+          {formatDateTime(latestMessage?.time_stamp)}
         </Typography>
       </Box>
-      <IconButton>
-        <FaEllipsisVertical fontSize={14} />
+      <IconButton onClick={deleteChat}>
+        <MdDelete fontSize={14} />
       </IconButton>
     </Box>
   );

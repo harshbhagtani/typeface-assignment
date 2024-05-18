@@ -6,10 +6,7 @@ import { FaPlus } from "react-icons/fa6";
 import { IoSend } from "react-icons/io5";
 import { USER_NAME } from "../../../constants";
 import { useAppStore } from "../../../store/useAppstore";
-
-const generateUid = () => {
-  return Date.now() + "" + Math.round(Math.random() * 1000);
-};
+import { generateUid } from "../../../utils";
 
 const ContainerFooter = () => {
   const [text, setText] = useState("");

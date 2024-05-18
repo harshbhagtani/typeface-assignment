@@ -14,7 +14,7 @@ const MessageTile = ({ message }) => {
         gap={"1rem"}
         width={"20rem"}
       >
-        <Avatar></Avatar>
+        <Avatar>{message?.user_name?.substr(0, 1)}</Avatar>
         <Box
           sx={{
             background: sender ? "#2196f3" : "#f5f5f5",
@@ -24,6 +24,9 @@ const MessageTile = ({ message }) => {
           padding={"0.5rem"}
           borderRadius={"6px"}
         >
+          <Typography sx={{ wordBreak: "break-all", fontWeight: "700" }}>
+            {message.user_name}
+          </Typography>
           <Typography sx={{ wordBreak: "break-all" }}>
             {message.content}
           </Typography>

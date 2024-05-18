@@ -21,14 +21,14 @@ export const initialMessageList = [
   {
     id: 1,
     user_name: "Alice",
-    content: "Hello world i am chat 1",
+    content: "Hello world how are you guys i am chat 1.",
     chat_id: 1,
     time_stamp: Date.now()
   },
   {
     id: 2,
     user_name: "Bob",
-    content: "Hello world i am chat 2",
+    content: "Hello world We are good from chat 2",
     chat_id: 2,
     time_stamp: Date.now()
   },

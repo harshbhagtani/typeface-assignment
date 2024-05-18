@@ -3,9 +3,22 @@ import React from "react";
 import { useAppStore } from "../../store/useAppstore";
 import ChatTile from "./ChatTile";
 import { IoIosPersonAdd } from "react-icons/io";
+import { generateUid } from "../../utils";
 
 const Chatlist = () => {
   const chatList = useAppStore((state) => state.chatList);
+  const setChatList = useAppStore((state) => state.setChatList);
+
+  const createChat = () => {
+    const payload = {
+      id: generateUid(),
+      chat_name: "Chat" + (chatList?.length + 1)
+    };
+    const updatedChatList = [...chatList];
+    updatedChatList?.push(payload);
+
+    setChatList(updatedChatList);
+  };
 
   return (
     <Box
@@ -20,7 +33,7 @@ const Chatlist = () => {
       <Typography variant="h5">Chats</Typography>
       <Box display={"flex"} gap={"0.5rem"}>
         <TextField placeholder="Search chat..." size="small" fullWidth />
-        <IconButton>
+        <IconButton onClick={createChat}>
           <IoIosPersonAdd />
         </IconButton>
       </Box>
